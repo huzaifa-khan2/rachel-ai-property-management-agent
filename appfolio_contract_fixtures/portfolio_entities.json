@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "feature": "portfolio_ingestion",
+  "sanitized": true,
+  "cases": [
+    {"id": "property_with_multiple_units", "property_key": "PROPERTY_A", "units": ["UNIT_1", "UNIT_2"], "expected": "healthy"},
+    {"id": "unit_with_primary_and_occupant", "residents": [{"type": "primary"}, {"type": "other_occupant"}], "expected": "healthy"},
+    {"id": "vacant_unit", "residents": [], "expected": "healthy"},
+    {"id": "resident_missing_optional_phone", "required_identity_present": true, "expected": "healthy"},
+    {"id": "duplicate_resident_match", "candidate_count": 2, "expected": "fail_closed"},
+    {"id": "active_vendor", "active": true, "trade_present": true, "expected": "healthy"},
+    {"id": "inactive_vendor", "active": false, "expected": "excluded"},
+    {"id": "vendor_property_link_duplicate", "same_property_vendor_pair": true, "expected": "deduplicated"},
+    {"id": "portfolio_owner_match", "property_group_match": true, "expected": "authorized"},
+    {"id": "portfolio_owner_mismatch", "property_group_match": false, "expected": "fail_closed"}
+  ]
+}

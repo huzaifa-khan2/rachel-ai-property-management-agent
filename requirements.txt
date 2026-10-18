@@ -1,0 +1,12 @@
+anthropic==0.117.0
+playwright==1.60.0
+pytz==2026.2
+schedule==1.2.2
+openpyxl==3.1.5
+pandas==2.3.3
+google-auth==2.50.0
+google-api-python-client==2.198.0
+requests==2.32.5
+beautifulsoup4==4.15.0
+pypdf==6.14.2
+gspread==6.2.1

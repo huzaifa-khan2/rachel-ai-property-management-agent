@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "feature": "portfolio_ingestion",
+  "sanitized": true,
+  "contract": "report_export",
+  "cases": [
+    {"id": "tenant_directory_valid", "required_columns_present": true, "expected": "healthy"},
+    {"id": "tenant_directory_invalid_workbook", "required_columns_present": false, "expected": "fail_closed"},
+    {"id": "new_download_only", "new_file_detected": true, "stale_file_present": true, "expected": "use_new_only"},
+    {"id": "download_timeout", "new_file_detected": false, "stale_file_present": true, "expected": "fail_closed"},
+    {"id": "work_order_history_duplicate_restart", "repeated_import": true, "expected": "deduplicated"},
+    {"id": "work_order_history_identity_columns_missing", "expected": "fail_closed"},
+    {"id": "lease_90_day_window", "window_days": 90, "expected": "due_once"},
+    {"id": "lease_60_day_window", "window_days": 60, "expected": "due_once"},
+    {"id": "lease_30_day_window", "window_days": 30, "expected": "due_once"},
+    {"id": "lease_downtime_catch_up", "missed_due_date": true, "expected": "caught_up_once"},
+    {"id": "monthly_restart_same_period", "completed_persisted": true, "expected": "skip"},
+    {"id": "dry_run_delivery", "dry_run": true, "expected": "remain_pending"}
+  ]
+}

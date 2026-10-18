@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "feature": "authentication_session",
+  "sanitized": true,
+  "contract": "authentication",
+  "cases": [
+    {"id": "authenticated_session_reused", "context_starts": 1, "successful_logins": 1, "operations": 2, "expected": "healthy"},
+    {"id": "complete_login_form", "email_count": 1, "password_count": 1, "submit_count": 1, "expected": "eligible"},
+    {"id": "incomplete_login_form", "email_count": 1, "password_count": 0, "expected": "fail_closed_before_submit"},
+    {"id": "two_factor_sms", "method_count": 1, "send_code_count": 1, "code_count": 1, "expected": "eligible"},
+    {"id": "ambiguous_two_factor", "method_count": 2, "expected": "fail_closed"},
+    {"id": "expired_session", "login_route_detected": true, "expected": "relogin"},
+    {"id": "unhealthy_page", "page_evaluation_failed": true, "expected": "context_restart"},
+    {"id": "profile_lock_contended", "second_owner": true, "expected": "fail_closed"},
+    {"id": "feature_failure_isolated", "failed_feature": "communication_inbox", "unrelated_feature": "work_order_reconciliation", "expected": "unrelated_available"}
+  ]
+}

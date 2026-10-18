@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "feature": "safety_gates",
+  "sanitized": true,
+  "cases": [
+    {"id": "global_paused", "rachel_enabled": false, "expected_writes": 0},
+    {"id": "test_mode_appfolio_write", "test_mode": true, "controlled_authorization": false, "expected_writes": 0},
+    {"id": "reconciliation_zero_write", "workflow_actions_attempted": 0, "expected": "healthy"},
+    {"id": "read_only_thread_guard", "typing": 0, "sending": 0, "assignment": 0, "toggle": 0, "scheduling": 0, "expected": "healthy"},
+    {"id": "communication_dedup_restart", "same_source_message": true, "expected_rows": 1},
+    {"id": "duplicate_message_bodies", "same_body_occurrences": 2, "expected_unique_fingerprints": 2},
+    {"id": "verified_write_memory", "browser_postcondition_verified": true, "expected": "durable_audit"},
+    {"id": "unverified_write_memory", "browser_postcondition_verified": false, "expected": "no_memory_mutation"},
+    {"id": "ambiguous_prior_write", "durable_intent_status": "attempting", "expected": "no_retry"},
+    {"id": "feature_circuit_threshold", "consecutive_failures": 3, "expected": "feature_disabled_only"}
+  ]
+}

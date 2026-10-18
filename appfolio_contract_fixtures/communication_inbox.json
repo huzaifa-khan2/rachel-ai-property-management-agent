@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "feature": "communication_inbox",
+  "sanitized": true,
+  "contract": "communication_inbox",
+  "live_contract_evidence": {
+    "row_container": "ul.list-group",
+    "row_control": "button",
+    "row_item": "li.list-group-item",
+    "volatile_fields": ["displayed_timestamp", "read_state"],
+    "stable_selector_fields": [
+      "contact_name",
+      "contact_role",
+      "list_detail",
+      "property",
+      "unit",
+      "latest_preview"
+    ]
+  },
+  "cases": [
+    {
+      "id": "empty_full_scope",
+      "rows": [],
+      "full_scope_verified": true,
+      "expected": "healthy"
+    },
+    {
+      "id": "already_read_rachel_owned",
+      "rows": [{"unread": false, "ownership": "rachel_owned", "event": "known"}],
+      "expected_open_count": 0
+    },
+    {
+      "id": "new_rachel_owned",
+      "rows": [{"unread": true, "ownership": "rachel_owned", "event": "new"}],
+      "expected_open_count": 1
+    },
+    {
+      "id": "explicit_delegation",
+      "rows": [{"unread": true, "ownership": "explicitly_delegated", "event": "new"}],
+      "expected_open_count": 1
+    },
+    {
+      "id": "human_owned_unread",
+      "rows": [{"unread": true, "ownership": "human_owned", "event": "new"}],
+      "expected_open_count": 0
+    },
+    {
+      "id": "ownership_unknown_unread",
+      "rows": [{"unread": true, "ownership": "ownership_unknown", "event": "new"}],
+      "expected_open_count": 0
+    },
+    {
+      "id": "timestamp_reformatted_same_preview",
+      "stable_selector_unchanged": true,
+      "volatile_event_fingerprint_changed": true,
+      "expected_authorization": "stable_selector"
+    },
+    {
+      "id": "preview_changed_after_delegation",
+      "stable_selector_unchanged": false,
+      "expected": "fail_closed"
+    },
+    {
+      "id": "duplicate_selector_rows",
+      "selector_match_count": 2,
+      "expected": "fail_closed"
+    }
+  ]
+}

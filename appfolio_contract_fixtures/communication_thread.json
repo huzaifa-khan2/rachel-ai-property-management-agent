@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "feature": "communication_thread_reader",
+  "sanitized": true,
+  "contract": "communication_thread",
+  "live_contract_evidence": {
+    "light_dom_only": true,
+    "frame_count": 3,
+    "semantic_thread_frame_count": 1,
+    "thread_root": "section with direct header, main role=list, and composer",
+    "history": "main role=list",
+    "mounted_message_count": 50,
+    "inbound_message_signature": "div role=listitem classes=text-start,col-sm-8",
+    "outbound_message_signature": "div role=listitem classes=text-end,col-sm-8",
+    "composer_textarea_count": 1,
+    "send_control_count": 1,
+    "back_control_count": 1,
+    "history_client_height": 445,
+    "history_scroll_height": 5150,
+    "virtualization_hint_count": 0,
+    "lazy_load_hint_count": 0,
+    "legacy_history_candidate_count": 0,
+    "legacy_verified_frame_count": 0
+  },
+  "cases": [
+    {"id": "immediate_render", "ready_attempt": 1, "expected": "healthy"},
+    {"id": "delayed_mount", "ready_attempt": 4, "expected": "healthy"},
+    {"id": "react_node_replacement", "semantic_identity_same": true, "expected": "healthy"},
+    {"id": "timestamp_reformat", "message_body_same": true, "expected": "healthy"},
+    {"id": "read_state_change", "semantic_identity_same": true, "expected": "healthy"},
+    {"id": "ambiguous_roots", "thread_root_count": 2, "expected": "fail_closed"},
+    {"id": "missing_history", "history_count": 0, "expected": "fail_closed"},
+    {"id": "missing_composer", "composer_count": 0, "expected": "fail_closed"},
+    {"id": "malformed_message", "invalid_message_count": 1, "expected": "fail_closed"},
+    {"id": "inbound_and_outbound", "direction_counts": {"inbound": 1, "outbound": 1}, "expected": "healthy"},
+    {"id": "grouped_metadata", "optional_timestamp_missing": false, "expected": "healthy"},
+    {"id": "missing_optional_timestamp", "optional_timestamp_missing": true, "expected": "healthy"},
+    {"id": "duplicate_bodies", "occurrence_fingerprints_unique": true, "expected": "healthy"},
+    {"id": "true_conversation_change", "semantic_identity_same": false, "expected": "fail_closed"},
+    {"id": "history_disappears", "history_count": 0, "expected": "fail_closed"},
+    {"id": "back_to_inbox_restored", "back_count": 1, "inbox_route_restored": true, "expected": "healthy"}
+  ]
+}

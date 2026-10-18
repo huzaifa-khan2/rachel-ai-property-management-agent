@@ -1,0 +1,14 @@
+[
+  "test_event_memory.py::EventMemoryTests::test_company_user_seed_is_scoped_not_single_instance",
+  "test_event_memory.py::EventMemoryTests::test_contextual_work_order_link_requires_exactly_one_active_match",
+  "test_event_memory.py::EventMemoryTests::test_explicit_work_order_communication_associated",
+  "test_event_memory.py::EventMemoryTests::test_limited_user_cannot_cross_portfolio_boundary",
+  "test_event_memory.py::EventMemoryTests::test_new_communication_detected",
+  "test_event_memory.py::EventMemoryTests::test_non_work_order_communication_stored_without_forced_link",
+  "test_event_memory.py::EventMemoryTests::test_previously_seen_communication_ignored",
+  "test_event_memory.py::EventMemoryTests::test_selector_state_schema_migrates_existing_database_in_place",
+  "test_event_memory.py::EventMemoryTests::test_unverified_write_cannot_mutate_memory_or_create_audit",
+  "test_event_memory.py::EventMemoryTests::test_verified_write_requires_complete_nonempty_target_and_state",
+  "test_event_memory.py::EventMemoryTests::test_verified_write_updates_memory_and_audit",
+  "test_import_side_effects.py::ImportSideEffectTests::test_every_production_module_imports_without_live_side_effects"
+]

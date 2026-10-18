@@ -1,0 +1,98 @@
+services:
+  - type: worker
+    name: rachel-client-co
+    runtime: docker
+    plan: standard
+    region: oregon
+    numInstances: 1
+    autoDeployTrigger: commit
+
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    dockerCommand: python main.py
+
+
+    disk:
+      name: rachel-data
+      mountPath: /var/data
+      sizeGB: 1
+
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+
+      - key: TZ
+        value: America/Los_Angeles
+
+      - key: RACHEL_DB_PATH
+        value: /var/data/rachel_data.db
+
+      - key: RACHEL_BROWSER_PROFILE
+        value: /var/data/rachel_browser_profile
+
+      - key: RACHEL_APPFOLIO_INBOX_POLL_MINUTES
+        value: "10"
+
+      - key: RACHEL_WO_RECONCILIATION_MINUTES
+        value: "720"
+
+      - key: RACHEL_WO_RECONCILIATION_BACKOFF_MINUTES
+        value: "30"
+
+      # Release-candidate safety gates. Keep AppFolio mutations disabled until
+      # their separately authorized controlled-write QA has passed.
+      - key: RACHEL_ENABLED
+        value: "false"
+
+      - key: RACHEL_TEST_MODE
+        value: "true"
+
+      - key: RACHEL_OWNER_QA_MODE
+        value: "false"
+
+      - key: RACHEL_APPFOLIO_WRITES_ENABLED
+        value: "false"
+
+      - key: RACHEL_APPFOLIO_MESSAGING_ENABLED
+        value: "false"
+
+      - key: RACHEL_APPFOLIO_QA_ENABLED
+        value: "false"
+
+      - key: RACHEL_APPFOLIO_COMMUNICATION_SEND_QA_ENABLED
+        value: "false"
+
+      - key: RACHEL_SMS_ENABLED
+        value: "false"
+
+      - key: RACHEL_LEASE_EMAIL_DRY_RUN
+        value: "true"
+
+      - key: RACHEL_PROPERTY_FACT_SHEET_WRITES_ENABLED
+        value: "false"
+
+      - key: RACHEL_ZIMAS_PROFILE
+        value: /var/data/zimas_browser_profile
+
+      - key: GOOGLE_SERVICE_ACCOUNT_JSON
+        value: /etc/secrets/rachel-google-service-account.json
+
+      - key: ANTHROPIC_API_KEY
+        sync: false
+
+      - key: APPFOLIO_EMAIL
+        sync: false
+
+      - key: APPFOLIO_PASSWORD
+        sync: false
+
+      - key: RACHEL_EMAIL_PASSWORD
+        sync: false
+
+      # Dedicated Gmail/Google Voice mailbox used for AppFolio 2FA and the
+      # email-to-SMS gateway. Values remain Render-managed secrets.
+      - key: RACHEL_GMAIL_USER
+        sync: false
+
+      - key: RACHEL_GMAIL_PASSWORD
+        sync: false

@@ -1,0 +1,3 @@
+{
+  "test_import_side_effects.py::ImportSideEffectTests::test_every_production_module_imports_without_live_side_effects": true
+}

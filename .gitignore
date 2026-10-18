@@ -1,0 +1,57 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Secrets and environment variables
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*service-account*.json
+rachel-client-co-*.json
+
+# Databases and operational memory
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+
+# Browser profiles and downloaded reports
+zimas_browser_profile/
+browser_profile/
+browser_profile.lock
+zimas_browser_profile.lock
+playwright/.auth/
+exports/
+downloads/
+
+# Logs and temporary files
+*.log
+logs/
+tmp/
+temp/
+.DS_Store
+
+# Editor files
+.vscode/
+.idea/
+
+# Local backups containing production code or data
+*_before_*.py
+
+# Legacy snapshot scripts kept for historical reference only. Never .py so
+# they cannot be picked up by import audits, pytest discovery, or py_compile.
+legacy_snapshots/
+
+# Local process files and backup directory
+*.pid
+backups/

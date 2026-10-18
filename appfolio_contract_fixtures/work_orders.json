@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "feature": "work_order_reconciliation",
+  "sanitized": true,
+  "contracts": ["work_order_list", "work_order_detail", "work_order_schedule"],
+  "cases": [
+    {"id": "empty_list", "listed": 0, "expected_detail_opens": 0},
+    {"id": "paginated_list", "list_pages": 3, "duplicate_numbers": 0, "expected": "healthy"},
+    {"id": "known_unchanged", "persisted": true, "list_changed": false, "expected_detail_opens": 0},
+    {"id": "unknown_work_order", "persisted": false, "expected_detail_opens": 1, "target_reason": "unknown_work_order"},
+    {"id": "changed_list_fields", "persisted": true, "list_changed": true, "expected_detail_opens": 1, "target_reason": "list_fields_changed"},
+    {"id": "missing_active_row", "persisted_status": "ASSIGNED", "listed": false, "expected_detail_opens": 1, "target_reason": "missing_from_open_list"},
+    {"id": "historical_statuses", "statuses": ["WAITING", "ASSIGNED", "SCHEDULED", "COMPLETED"], "workflow_actions_attempted": 0},
+    {"id": "emergency_text_during_reconciliation", "priority": "EMERGENCY", "workflow_actions_attempted": 0},
+    {"id": "detail_identity_mismatch", "expected": "fail_closed"},
+    {"id": "restart_identical", "persisted": true, "list_changed": false, "expected_detail_opens": 0},
+    {"id": "future_two_hour_schedule", "confirmed_by_vendor": true, "confirmed_by_tenant": true, "duration_minutes": 120, "expected": "eligible_after_write_gate"},
+    {"id": "expired_schedule_window", "duration_minutes": 120, "future": false, "expected": "fail_closed"}
+  ]
+}
